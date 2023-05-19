@@ -98,7 +98,7 @@ async def ReflashAI():
 				await Login(1)
 				await ClickAd()
 	await asyncio.sleep(1)
-	print(f"Initiall message: {await initChat('嗨嗨')}")
+	print(f"initialization message: {await initChat('嗨嗨')}")
 	await page.screenshot(path="data/example.png")
 
 async def selectChat():
@@ -215,4 +215,3 @@ if __name__ == "__main__":
 	ChaInt()
 	while True:
 		print(chai(input(">")))
-
