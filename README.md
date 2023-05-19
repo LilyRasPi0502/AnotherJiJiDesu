@@ -32,6 +32,19 @@ Name.json -> 設定機器人默認名稱與別名(這個必填不然只要講話
 
 目前應該是沒啥問題(<sub>有問題的只有我這個python證照考不過的垃圾</sub>)
 
+# 預設操作指令
+ - Replace
+   - `XXX Replace String`
+     - 可讓名字為XXX的機器人講出String
+   - `XXX Replce this`(回覆任意訊息)
+     - 可讓名字為XXX的機器人講出被回覆的訊息
+ - ReAI
+   - `XXX ReAI`
+     - 可讓名字為XXX的機器人重整AI頁面並且清除較早的生成紀錄
+   - `XXX OOO ReAI`
+     - 可讓名字為XXX以及OOO的機器人重整AI頁面並且清除較早的生成紀錄
+ 
+
 # 更新日誌
 
 - 20230519
