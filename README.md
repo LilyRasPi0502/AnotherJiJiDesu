@@ -1,6 +1,6 @@
 # AnotherJiJiDesu
 
-<h1>若有侵權疑慮將會下架此儲存庫</h1><br><h3>(If there is any infringement concern, this repository will be taken down)</h3>
+## 若有侵權疑慮將會下架此儲存庫<br>(If there is any infringement concern, this repository will be taken down)
 
 # How to use?(好阿都不要教阿)
 在Launcher.exe的目錄下使用`python data/bot.py`指令或是直接在windows環境下使用Launcher.exe
