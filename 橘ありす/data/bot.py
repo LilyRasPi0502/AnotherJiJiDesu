@@ -187,7 +187,6 @@ class MyBot(commands.Bot):
 
 
 def bot1():
-	Token = "MTA5NjI5ODk4NDk4MjcyODgyNQ.GC5lAp.5hS5wKB6KVFkVqrU_BgNChxudvA5z9AV5PSWII"
 	# Your code here
 	bot = MyBot(command_prefix="!", intent=intents)
 	bot.run(Token)
