@@ -26,6 +26,7 @@ async def ChaInt():
 		await ClickAd()
 		
 	"""
+	print(f"initialization message: {await initChat('嗨嗨')}")
 	
 	print("Page initialization complete!")
 	
@@ -86,8 +87,8 @@ async def ClickAd():
 	
 async def ReflashAI():
 	global page
-	
-	await page.reload()
+	del page
+	await ChaInt()
 	
 	await asyncio.sleep(5)
 	
@@ -98,7 +99,6 @@ async def ReflashAI():
 				await Login(1)
 				await ClickAd()
 	await asyncio.sleep(1)
-	print(f"initialization message: {await initChat('嗨嗨')}")
 	await page.screenshot(path="data/example.png")
 
 async def selectChat():
