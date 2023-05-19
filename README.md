@@ -7,7 +7,7 @@
 本程式使用火狐瀏覽器所以需要安裝
 另外還要python
 
-還有其他DC Python庫在setup-lib檔案裏面有最低限度的安裝指令
+還有*DC API for Python*在setup-lib檔案裏面有最低限度的安裝指令
 
 安裝相依庫時可以先前往data/json填寫資料
 
@@ -21,10 +21,10 @@ Name.json -> 設定機器人默認名稱與別名(這個必填不然只要講話
 
 到這裡就可以開啟機器人來玩了
 
-↓成功啟動大概像這樣
+↓成功啟動大概像這樣<br>
 ![image](https://github.com/LilyRasPi0502/AnotherJiJiDesu/assets/115215163/123debd3-68b9-47ef-b4f4-790da8f23758)
 
-
+目前應該是沒啥問題(<sub>有問題的只有我這個python證照考不過的垃圾</sub>)
 
 # 更新日誌
 
