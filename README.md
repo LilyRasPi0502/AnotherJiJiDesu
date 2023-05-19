@@ -26,7 +26,8 @@ Name.json -> 設定機器人默認名稱與別名(這個必填不然只要講話
 到這裡就可以開啟機器人來玩了
 
 ↓成功啟動大概像這樣<br>
-![image](https://github.com/LilyRasPi0502/AnotherJiJiDesu/assets/115215163/14fdc35e-d02b-4d79-96fc-86b7189c3776)
+![image](https://github.com/LilyRasPi0502/AnotherJiJiDesu/assets/115215163/ef8b6f6c-e805-499b-a628-726f678c12b7)
+
 
 
 目前應該是沒啥問題(<sub>有問題的只有我這個python證照考不過的垃圾</sub>)
