@@ -1,0 +1,5 @@
+python -m pip install -U py-cord
+
+pip install pytest-playwright
+
+playwright install
