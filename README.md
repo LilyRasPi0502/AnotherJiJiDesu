@@ -1,4 +1,6 @@
 # AnotherJiJiDesu
+ - 本專案將使用python與網頁交互,使網頁版的AI語言模型串接在Discord機器人上面
+ - 此專案可用來做性癖機器人(目前使用的模型其網站沒有明文規定不能做色情的問答)
 
 ## 若有侵權疑慮將會下架此儲存庫<br>(If there is any infringement concern, this repository will be taken down)
 
@@ -6,7 +8,7 @@
 在Launcher.exe的目錄下使用`python data/bot.py`指令或是直接在windows環境下使用Launcher.exe
 
 # 環境建置
-本程式使用火狐瀏覽器所以需要安裝
+本程式使用火狐瀏覽器(需要安裝Firefox)
 另外還要python
 
 還有*DC API for Python*在setup-lib檔案裏面有最低限度的安裝指令
