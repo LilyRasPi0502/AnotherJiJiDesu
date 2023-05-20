@@ -30,8 +30,8 @@ class MyBot(commands.Bot):
 		self.message2 = f"正在使用身分: {self.user}({self.user.id})"
 		print(self.message1)
 		self.changeActivity.start()
-		#await ChaInt()
-		self.Reflash_CharacterAI.start()
+		await self.Reflash_Character()
+		#self.Reflash_CharacterAI.start()
 		
 	async def on_message(self, message):
 		#排除自己的訊息，避免陷入無限循環
