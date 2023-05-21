@@ -19,112 +19,19 @@ async def ChaInt():
 	await page.goto(f"https://chateverywhere.app/zh")
 	await asyncio.sleep(5)
 
-	"""
-	if page.url.find("https://chat.openai.com/chat") == -1:
-		await Login(0)
+	return await initChat("早安（打招呼）")
 	
-		await ClickAd()
-		
-	"""
-	print(f"initialization message: {await initChat('嗨嗨')}")
-	
-	print("Page initialization complete!")
-	
-async def Login(arg):
-	global page
-	config		= open("data/json/chatGPT_Config.json", "r", encoding="utf-8")
-	conf		= json.load(config)
-
-	Login = await page.wait_for_selector(".btn-primary")
-	await Login.click()
-	
-	if arg == 0:
-		print("Click Login button")
-	await page.screenshot(path="data/example.png")
-	
-	Email = await page.wait_for_selector(".input")
-	await Email.fill(conf["Account"])
-	await Email.press("Enter")
-	if arg == 0:
-		print(f"Enter Account: {conf['Account']}")
-	await page.screenshot(path="data/example.png")
-			
-	PW = await page.wait_for_selector(".input")
-	await PW.fill(conf["Password"])
-	await PW.press("Enter")
-	if arg == 0:
-		print(f"Enter Password: {Pwd(conf['Password'])}")
-	await page.screenshot(path="data/example.png")
-			
-	print("chatGPt on login")
-	
-async def ClickAd():
-
-	Sstr = ""
-	while True:
-		try:
-			ADB = await page.query_selector_all(".mb-5")
-		except:
-			ADB = None
-		await page.screenshot(path="data/example.png")
-		for i in range(len(ADB)):
-			Sstr = await ADB[i].inner_text()
-			if Sstr.find("ChatGPT") != -1:
-				break
-		if Sstr.find("ChatGPT") != -1:
-			break
-			
-	for i in range(3):
-		Sstr = ""
-		ADB = await page.query_selector_all(".btn")
-		for i in range(len(ADB)):
-			Sstr = await ADB[i].inner_text()
-			if Sstr.find("Next") != -1 or Sstr.find("Done") != -1:
-				await ADB[i].click()
-		await asyncio.sleep(5)
-	await page.screenshot(path="data/example.png")
-	print("Tour skipped")
 	
 async def ReflashAI():
 	global page
 	del page
-	await ChaInt()
 	
-	await asyncio.sleep(5)
+	print(f"initialization message: {await ChaInt()}")
 	
-	if page.url.find("https://chat.openai.com/chat") == -1:
-		Login = await page.query_selector(".btn-primary")
-		if str(Login).find("NoneType") != -1:
-			if await Login.is_visible():
-				await Login(1)
-				await ClickAd()
-	await asyncio.sleep(1)
+	print("Page initialization complete!")
+	
 	await page.screenshot(path="data/example.png")
 
-async def selectChat():
-	global page
-	config		= open("data/json/chatGPT_Config.json", "r", encoding="utf-8")
-	conf		= json.load(config)
-	Chat = ".gap-3"
-	ChatName = conf["ChatName"]
-	Sstr = ""
-	
-	while True:
-		try:
-			S = await page.query_selector_all(Chat)
-		except:
-			S = None
-		if S != None:
-			for i in range(len(S)):
-				Sstr = await S[i].inner_text()
-				if Sstr.find(ChatName) != -1:
-					await S[i].click()
-					print(f"select chat name: {ChatName}")
-					break
-		if Sstr.find(ChatName) != -1:
-			break
-		
-	await page.screenshot(path="data/example.png")
 
 async def chai(text):
 	global page
@@ -141,7 +48,7 @@ async def chai(text):
 				break
 				
 				
-	await page.get_by_placeholder("輸入訊息").fill(text)
+	await page.get_by_placeholder("輸入訊息").fill(f"中文的話請用繁體中文做回覆,如有使用程式碼區塊請使用/Code/語言類型/ln //程式碼 /Code/幫我做包覆(例如:\n/Code/py/lnprint(Str)\n/Code/),{text}")
 	await page.get_by_placeholder("輸入訊息").press("Enter")
 	
 	
@@ -166,9 +73,9 @@ async def chai(text):
 	div = await page.query_selector_all(".text-base")
 	output_text = await div[-1].inner_text()
 	
-	output_text = output_text.replace("ChatGPT\n!", "")
-	output_text = output_text.replace("ChatGPT", "")
-	output_text = output_text.replace("This content may violate our content policy. If you believe this to be in error, please submit your feedback — your input will aid our research in this area.","")
+	output_text = output_text.replace("/ln", "\n")
+	output_text = output_text.replace("/Code/", "```")
+	output_text = output_text.replace("複製代碼","")
 	
 	await page.screenshot(path="data/example.png")
 	return output_text
@@ -192,10 +99,6 @@ async def initChat(text):
 	
 	div = await page.query_selector_all(".text-base")
 	output_text = await div[-1].inner_text()
-	
-	output_text = output_text.replace("ChatGPT\n!", "")
-	output_text = output_text.replace("ChatGPT", "")
-	output_text = output_text.replace("This content may violate our content policy. If you believe this to be in error, please submit your feedback — your input will aid our research in this area.","")
 	
 
 	return output_text
