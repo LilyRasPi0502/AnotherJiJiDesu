@@ -43,9 +43,14 @@ Name.json -> 設定機器人默認名稱與別名(這個必填不然只要講話
      - 可讓名字為XXX的機器人重整AI頁面並且清除較早的生成紀錄
    - `XXX OOO ReAI`
      - 可讓名字為XXX以及OOO的機器人重整AI頁面並且清除較早的生成紀錄
+ - --Search
+   - `Search XXX幫我找OO`
+     - 可讓名字為XXX的機器人搜尋OO的資料並且用角色的語氣幫你介紹(不過正確率還不高<sub>對不起是我在爛</sub>)
  
 
 # 更新日誌
 
 - 20230519
   - 從JiJiDesu(<https://github.com/LilyRasPi0502/JiJiDesu>)搬移成不用登入帳號的AI聊天網站<b>chateverywhere</b>(<https://chateverywhere.app/zh>)
+- 20230523
+  - 更新data/bot.py:新增指令`--Search 文字`可藉由<b>chateverywhere</b>連網功能搜尋資料(雖然正確率還不高<sub>對不起是我在爛</sub>)
