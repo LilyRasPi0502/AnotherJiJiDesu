@@ -88,10 +88,27 @@ class MyBot(commands.Bot):
 		
 		elif cmd.find("ReAI") != -1:					#測試功能:Reflash CharacterAI page
 			async with ctx.channel.typing():
-				await self.Reflash_Character()
-				Str = "Reflash CharacterAI page"
+				
+				Str = await self.Reflash_Character()
 			await ctx.reply(Str)
 			print(f"[{Get_Time()}] Reply message to {str(ctx.guild)}.{str(ctx.channel)}.{ctx.author}: {Str}")
+		elif cmd.find("--Search") != -1:				#測試功能:Search
+			async with ctx.channel.typing():
+				f = open("data/json/CharacterSet.json", "r", encoding="utf-8")
+				Chara = json.load(f)
+				text = await self.ChangeText(ctx, f"{Chara['Character']}")
+				Str = await NetWork(f"[{Get_Time()}] {cmd.split('--Search')[-1]}")
+				Str = await chai(text)
+
+				try:
+					msg = await ctx.reply(Str)
+
+				except:
+					f = open("data/json/CharacterSet.json", "r", encoding="utf-8")
+					text = await self.ChangeText(ctx, f"{Chara['Err']}")
+					Str = await chai(text)
+					msg = await ctx.reply(Str)
+			print(f"[{Get_Time()}] Reply message to {str(ctx.guild)}.{str(ctx.channel)}.{ctx.author}: {msg.content}")
 	
 		else:								#暴力連接chatGPT
 
@@ -109,7 +126,6 @@ class MyBot(commands.Bot):
 					text = await self.ChangeText(ctx, f"{Chara['Err']}")
 					Str = await chai(text)
 					msg = await ctx.reply(Str)
-			
 			print(f"[{Get_Time()}] Reply message to {str(ctx.guild)}.{str(ctx.channel)}.{ctx.author}: {msg.content}")
 
 	async def ChangeText(self, ctx, text):
@@ -127,7 +143,7 @@ class MyBot(commands.Bot):
 		text = text.replace("&channel;", str(ctx.channel))
 		text = text.replace("&Master_ID;", str(Master_ID))
 		text = text.replace("&bot_ID;", str(bot_ID))
-		text = text.replace("&message;", str(self.ID_To_Name(ctx.content)))
+		text = text.replace("&message;", str(self.ID_To_Name(ctx.content)).split("--Search")[-1])
 		text = text.replace("&ReferenceSTR;", str(self.ID_To_Name(msg)))
 		text = text.replace("&Time;", str(Get_Time()))
 		return text
@@ -178,7 +194,9 @@ class MyBot(commands.Bot):
 	
 	async def Reflash_Character(self):
 		await ReflashAI()
+		
 		print("On_Reflash")
+		return "Ok"
 		
 	def add_commands(self):
 		@self.command(name="status", pass_context=True)
