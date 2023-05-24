@@ -19,7 +19,7 @@ async def ChaInt():
 	await page.goto(f"https://chateverywhere.app/zh")
 	await asyncio.sleep(5)
 
-	return await initChat("早安（打招呼）")
+	return await initChat("早安（望著對方期待著幫助）")
 	
 	
 async def ReflashAI():
@@ -32,6 +32,44 @@ async def ReflashAI():
 	
 	await page.screenshot(path="data/example.png")
 
+async def NetWork(text):
+	global page
+	
+	await page.screenshot(path="data/example.png")
+	Sstr = ""
+	
+	while Sstr.find("重新生成") == -1:
+		S = await page.query_selector_all(".gap-3")
+		for i in range(len(S)):
+			#print(f"find Regenerate: {await S[i].inner_text()}")
+			Sstr = await S[i].inner_text()
+			if Sstr.find("重新生成") != -1:		#wait genelate complete
+				break
+				
+				
+	await page.select_option('select', value='langchain-chat')
+	await page.get_by_placeholder("輸入訊息").fill(f"{text}")
+	await page.get_by_placeholder("輸入訊息").press("Enter")
+	
+	
+	Sstr = ""
+	while Sstr.find("重新生成") != -1:
+		S = await page.query_selector_all(".gap-3")
+		for i in range(len(S)):
+			#print(f"find Stop: {await S[i].inner_text()}")
+			Sstr = await S[i].inner_text()
+			if Sstr.find("重新生成") == -1:		#wait genelate start
+				break
+	await page.screenshot(path="data/example.png")
+	Sstr = ""
+	while Sstr.find("重新生成") == -1:
+		S = await page.query_selector_all(".gap-3")
+		for i in range(len(S)):
+			#print(f"find Regenerate: {await S[i].inner_text()}")
+			Sstr = await S[i].inner_text()
+			if Sstr.find("重新生成") != -1:		#is genelate complete
+				return "Ok"
+	
 
 async def chai(text):
 	global page
@@ -48,6 +86,7 @@ async def chai(text):
 				break
 				
 				
+	await page.select_option('select', value='default')
 	await page.get_by_placeholder("輸入訊息").fill(f"中文的話請用繁體中文做回覆,如有使用程式碼區塊請使用/Code/語言類型/ln //程式碼 /Code/幫我做包覆(例如:\n/Code/py/lnprint(Str)\n/Code/),{text}")
 	await page.get_by_placeholder("輸入訊息").press("Enter")
 	
@@ -84,9 +123,11 @@ async def initChat(text):
 	global page
 	
 	await page.screenshot(path="data/example.png")
-	
+	await page.get_by_placeholder("輸入訊息").click()
 	await page.get_by_placeholder("輸入訊息").fill(text)
+	await page.select_option('select', value='default')
 	await page.get_by_placeholder("輸入訊息").press("Enter")
+	await page.screenshot(path="data/example.png")
 	
 	Sstr = ""
 	while Sstr.find("重新生成") == -1:

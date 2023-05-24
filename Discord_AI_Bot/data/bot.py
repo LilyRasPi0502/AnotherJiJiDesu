@@ -96,8 +96,8 @@ class MyBot(commands.Bot):
 			async with ctx.channel.typing():
 				f = open("data/json/CharacterSet.json", "r", encoding="utf-8")
 				Chara = json.load(f)
-				text = await self.ChangeText(ctx, f"{Chara['Character']}")
-				Str = await NetWork(f"[{Get_Time()}] {cmd.split('--Search')[-1]}")
+				text = await self.ChangeText(ctx, f"{Chara['Net']}")
+				Str = await NetWork(f"[{Get_Time()}] {cmd.replace('--Search', '')[-1]}")
 				Str = await chai(text)
 
 				try:
@@ -143,7 +143,8 @@ class MyBot(commands.Bot):
 		text = text.replace("&channel;", str(ctx.channel))
 		text = text.replace("&Master_ID;", str(Master_ID))
 		text = text.replace("&bot_ID;", str(bot_ID))
-		text = text.replace("&message;", str(self.ID_To_Name(ctx.content)).split("--Search")[-1])
+		text = text.replace("&message;", str(self.ID_To_Name(ctx.content)))
+		text = text.replace("--Search", "")
 		text = text.replace("&ReferenceSTR;", str(self.ID_To_Name(msg)))
 		text = text.replace("&Time;", str(Get_Time()))
 		return text
