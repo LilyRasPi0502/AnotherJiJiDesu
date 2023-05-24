@@ -18,8 +18,12 @@ async def ChaInt():
 	page = await context.new_page()
 	await page.goto(f"https://chateverywhere.app/zh")
 	await asyncio.sleep(5)
-
-	return await initChat("早安（望著對方期待著幫助）")
+	f = open("data/json/CharacterSet.json", "r", encoding="utf-8")
+	Chara = json.load(f)
+	text = Chara['Character']
+	text = text.replace("&author;", "初始化專員").replace("&guild;", "初始化情報").replace("&channel;", "").replace("&ReferenceSTR;", "").replace("&message;", "嗨嗨").replace("&Time;", Get_Time())
+	
+	return await initChat(text)
 	
 	
 async def ReflashAI():
@@ -152,6 +156,7 @@ def Pwd(Pwd):
 	return Str
 	
 def Get_Time():
+	import datetime
 	now = datetime.datetime.now()
 	return now.strftime("%Y-%m-%d %H:%M:%S")
 
