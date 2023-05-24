@@ -54,3 +54,6 @@ Name.json -> 設定機器人默認名稱與別名(這個必填不然只要講話
   - 從JiJiDesu(<https://github.com/LilyRasPi0502/JiJiDesu>)搬移成不用登入帳號的AI聊天網站<b>chateverywhere</b>(<https://chateverywhere.app/zh>)
 - 20230523
   - 更新data/bot.py:新增指令`--Search 文字`可藉由<b>chateverywhere</b>連網功能搜尋資料(雖然正確率還不高<sub>對不起是我在爛</sub>)
+- 20230524
+  - 更新data/bot.py:調整指令傳送資料
+  - 更尋data/json/CharacterSet.json:
