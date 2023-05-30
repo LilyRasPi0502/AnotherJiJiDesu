@@ -31,7 +31,7 @@ class MyBot(commands.Bot):
 		print(self.message1)
 		self.changeActivity.start()
 		await self.Reflash_Character()
-		#self.Reflash_CharacterAI.start()
+		self.Reflash_CharacterAI.start()
 		
 	async def on_message(self, message):
 		#排除自己的訊息，避免陷入無限循環
@@ -92,6 +92,12 @@ class MyBot(commands.Bot):
 				Str = await self.Reflash_Character()
 			await ctx.reply(Str)
 			print(f"[{Get_Time()}] Reply message to {str(ctx.guild)}.{str(ctx.channel)}.{ctx.author}: {Str}")
+		elif cmd.find("CMD") != -1:					#測試功能:CMD
+			import os
+			async with ctx.channel.typing():
+				os.system(cmd.split("CMD ")[-1])
+			msg = await ctx.reply(f"Used command: {cmd.split('CMD ')[-1]}")
+			print(f"[{Get_Time()}] Reply message to {str(ctx.guild)}.{str(ctx.channel)}.{ctx.author}: {msg.content}")
 		elif cmd.find("--Search") != -1:				#測試功能:Search
 			async with ctx.channel.typing():
 				f = open("data/json/CharacterSet.json", "r", encoding="utf-8")
@@ -187,9 +193,15 @@ class MyBot(commands.Bot):
 		data			=	json.load(f)
 		State			=	data["State"]
 		await self.change_presence(activity=discord.Activity(name=State, type=0))
-
+		
+	utc = datetime.timezone.utc
+	times = [
+		datetime.time(hour=0, tzinfo=utc),
+		datetime.time(hour=8, tzinfo=utc),
+		datetime.time(hour=16, tzinfo=utc)
+	]
 	#Reflash CharacterAI
-	@tasks.loop(minutes=30)
+	@tasks.loop(time=times)
 	async def Reflash_CharacterAI(self):
 		await self.Reflash_Character()
 	
