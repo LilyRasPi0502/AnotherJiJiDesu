@@ -57,3 +57,5 @@ Name.json -> 設定機器人默認名稱與別名(這個必填不然只要講話
 - 20230524
   - 更新data/bot.py:調整指令傳送資料
   - 更尋data/json/CharacterSet.json:
+- 20230604
+  - 更新data/bot.py:可回覆表情符號
