@@ -42,7 +42,7 @@ class MyBot(commands.Bot):
 
 		#列印接收到的訊息
 		print(f"[{Get_Time()}] Get Message from {str(message.guild)}.{str(message.channel)}.{str(message.author)}: {str(message.content)}")
-	
+		
 		#判斷有無回覆訊息
 		if message.reference is not None:
 			#獲取被回覆的訊息
@@ -59,9 +59,29 @@ class MyBot(commands.Bot):
 			await self.cmd(message, self.ID_To_Name(message.content))
 			send = False
 
+	async def Reaction(self, message):
+		text = await self.ChangeText(message, f"你是{str(self.user)[:-5]}，請你以{str(self.user)[:-5]}的視角給予頻道內的訊息些許表情符號、emoji回應，不用每一則訊息都回應，基本回應格式如下[🤮,❌,❤,❓,⭕]，任何的表情符號、emoji都可以使用，數量沒有限定，如果沒有要做回應請給我[None]，如果明顯不是找{str(self.user)[:-5]}請給我[None]，如果有回應表情符號、emoji則不需要回應[None]，除了格式化的回應請不要做出任何文字回應，來自&guild;.&channel;的[&author;]的訊息如下：「&message;」")
+		Str = await chai(text)
+		Str = Str.split("[")[-1]
+		Str = Str.split("]")[0]
+		if Str.find("None") == -1:
+			if Str.find(",") != -1:
+				emojiList = Str.split(",")
+				for emoji in emojiList:
+					try:
+						await message.add_reaction(emoji)
+					except:
+						pass
+			else:
+				try:
+					await message.add_reaction(Str)
+				except:
+					pass
+
+
 	#指令讀取
 	async def cmd(self, ctx, cmd):
-
+		await self.Reaction(ctx)
 		if cmd.find("Replace ") != -1:					#測試功能:取代訊息
 			if ctx.reference is not None:
 				message = await ctx.channel.fetch_message(ctx.reference.message_id)
@@ -132,6 +152,7 @@ class MyBot(commands.Bot):
 					text = await self.ChangeText(ctx, f"{Chara['Err']}")
 					Str = await chai(text)
 					msg = await ctx.reply(Str)
+
 			print(f"[{Get_Time()}] Reply message to {str(ctx.guild)}.{str(ctx.channel)}.{ctx.author}: {msg.content}")
 
 	async def ChangeText(self, ctx, text):
