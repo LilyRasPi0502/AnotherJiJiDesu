@@ -56,6 +56,9 @@ Name.json -> 設定機器人默認名稱與別名(這個必填不然只要講話
   - 更新data/bot.py:新增指令`--Search 文字`可藉由<b>chateverywhere</b>連網功能搜尋資料(雖然正確率還不高<sub>對不起是我在爛</sub>)
 - 20230524
   - 更新data/bot.py:調整指令傳送資料
-  - 更尋data/json/CharacterSet.json:
+  - 更新data/json/CharacterSet.json:對應內部使用資料
 - 20230604
   - 更新data/bot.py:可回覆表情符號
+- 20230606
+  - 更新data/bot.py:回覆表情符號架構
+  - 更新data/Fnc/asyncChat.py:整合回覆表情符號架構(應該沒問題？<sup>有問題的只有我這個python證照沒考過的拉機</sup>)
