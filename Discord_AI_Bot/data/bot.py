@@ -59,11 +59,12 @@ class MyBot(commands.Bot):
 			await self.cmd(message, self.ID_To_Name(message.content))
 			send = False
 
-	async def Reaction(self, message):
-		text = await self.ChangeText(message, f"你是{str(self.user)[:-5]}，請你以{str(self.user)[:-5]}的視角給予頻道內的訊息些許表情符號、emoji回應，不用每一則訊息都回應，基本回應格式如下[🤮,❌,❤,❓,⭕]，任何的表情符號、emoji都可以使用，數量沒有限定，如果沒有要做回應請給我[None]，如果明顯不是找{str(self.user)[:-5]}請給我[None]，如果有回應表情符號、emoji則不需要回應[None]，除了格式化的回應請不要做出任何文字回應，來自&guild;.&channel;的[&author;]的訊息如下：「&message;」")
-		Str = await chai(text)
+	async def Reaction(self, message, Str):
+		Str = Str.split("<Reactions>")[-1]
+		Str = Str.split("</Reactions>")[0]
 		Str = Str.split("[")[-1]
 		Str = Str.split("]")[0]
+		#print(Str)
 		if Str.find("None") == -1:
 			if Str.find(",") != -1:
 				emojiList = Str.split(",")
@@ -81,7 +82,7 @@ class MyBot(commands.Bot):
 
 	#指令讀取
 	async def cmd(self, ctx, cmd):
-		await self.Reaction(ctx)
+		
 		if cmd.find("Replace ") != -1:					#測試功能:取代訊息
 			if ctx.reference is not None:
 				message = await ctx.channel.fetch_message(ctx.reference.message_id)
@@ -125,7 +126,14 @@ class MyBot(commands.Bot):
 				text = await self.ChangeText(ctx, f"{Chara['Net']}")
 				Str = await NetWork(f"[{Get_Time()}] {cmd.replace('--Search', '')[-1]}")
 				Str = await chai(text)
-
+				
+				await self.Reaction(ctx, Str)
+				
+				if Str.find("Reactions") != -1 or (Str.find("[") != -1 and Str.find("]") != -1):
+					Str = (Str.split("[")[0] + Str.split("]")[-1])
+					Str = Str.replace("<Reactions>", "")
+					Str = Str.replace("</Reactions>", "")
+					
 				try:
 					msg = await ctx.reply(Str)
 
@@ -143,6 +151,11 @@ class MyBot(commands.Bot):
 				Chara = json.load(f)
 				text = await self.ChangeText(ctx, f"{Chara['Character']}")
 				Str = await chai(text)
+				await self.Reaction(ctx, Str)
+				if Str.find("Reactions") != -1 or (Str.find("[") != -1 and Str.find("]") != -1):
+					Str = (Str.split("[")[0] + Str.split("]")[-1])
+					Str = Str.replace("<Reactions>", "")
+					Str = Str.replace("</Reactions>", "")
 
 				try:
 					msg = await ctx.reply(Str)

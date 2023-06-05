@@ -21,7 +21,7 @@ async def ChaInt():
 	f = open("data/json/CharacterSet.json", "r", encoding="utf-8")
 	Chara = json.load(f)
 	text = Chara['Character']
-	text = text.replace("&author;", "初始化專員").replace("&guild;", "初始化情報").replace("&channel;", "").replace("&ReferenceSTR;", "").replace("&message;", "嗨嗨").replace("&Time;", Get_Time())
+	text = text.replace("&author;", "初始化專員").replace("&guild;", "初始化情報").replace("&channel;", "").replace("&ReferenceSTR;", "").replace("&message;", "嗨嗨（探頭）").replace("&Time;", Get_Time())
 	
 	return await initChat(text)
 	
@@ -91,7 +91,7 @@ async def chai(text):
 				
 				
 	await page.select_option('select', value='default')
-	await page.get_by_placeholder("輸入訊息").fill(f"中文的話請用繁體中文做回覆,如有使用程式碼區塊請使用/Code/語言類型/ln //程式碼 /Code/幫我做包覆(例如:\n/Code/py/lnprint(Str)\n/Code/),{text}")
+	await page.get_by_placeholder("輸入訊息").fill(f"中文的話請用繁體中文做回覆,如有使用程式碼區塊請使用/Code/語言類型/ln //程式碼 /Code/幫我做包覆(例如:\n/Code/py/lnprint(Str)\n/Code/),並且請你以角色的視角給予些許表情符號、emoji回應，不用每一則訊息都回應表情符號，格式化的回應如下<Reactions>[🤮,❌,❤,❓,⭕]</Reactions>,回應一定要使用Reactions的HTML標籤包覆，任何的表情符號、emoji都可以使用，數量沒有限定，如果沒有要做回應請給我<Reactions>[None]</Reactions>，如果有回應表情符號、emoji則不需要回應<Reactions>[None]</Reactions>,{text}")
 	await page.get_by_placeholder("輸入訊息").press("Enter")
 	
 	
