@@ -46,6 +46,9 @@ Name.json -> 設定機器人默認名稱與別名(這個必填不然只要講話
  - --Search
    - `Search XXX幫我找OO`
      - 可讓名字為XXX的機器人搜尋OO的資料並且用角色的語氣幫你介紹(不過正確率還不高<sub>對不起是我在爛</sub>)
+ - Restart
+   - `OOO Restart`
+     - 可讓名字為OOO的機器人重新啟動(還沒詳細測試過<sub>對不起是我在爛</sub>)
  
 
 # 更新日誌
@@ -62,3 +65,5 @@ Name.json -> 設定機器人默認名稱與別名(這個必填不然只要講話
 - 20230606
   - 更新data/bot.py:回覆表情符號架構
   - 更新data/Fnc/asyncChat.py:整合回覆表情符號架構(應該沒問題？<sup>有問題的只有我這個python證照沒考過的拉機</sup>)
+- 20230606
+  - 更新data/bot.py:新增Restart指令重啟機器人
