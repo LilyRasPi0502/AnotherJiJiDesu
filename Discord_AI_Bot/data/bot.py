@@ -251,6 +251,7 @@ class MyBot(commands.Bot):
 	@tasks.loop(time=times)
 	async def Reflash_CharacterAI(self):
 		await self.Reflash_Character()
+		await self.CloseSelf()
 	
 	async def Reflash_Character(self):
 		await ReflashAI()
