@@ -32,7 +32,7 @@ class MyBot(commands.Bot):
 		self.changeActivity.start()
 		await self.Reflash_Character()
 		self.Reflash_CharacterAI.start()
-		
+	
 	async def on_message(self, message):
 		#排除自己的訊息，避免陷入無限循環
 		if message.author == self.user:
@@ -119,6 +119,10 @@ class MyBot(commands.Bot):
 				os.system(cmd.split("CMD ")[-1])
 			msg = await ctx.reply(f"Used command: {cmd.split('CMD ')[-1]}")
 			print(f"[{Get_Time()}] Reply message to {str(ctx.guild)}.{str(ctx.channel)}.{ctx.author}: {msg.content}")
+		elif cmd.find("Restart") != -1:					#測試功能:CMD
+			await self.CloseSelf()
+			msg = await ctx.reply(f"Restart{self.user}")
+			print(f"[{Get_Time()}] Reply message to {str(ctx.guild)}.{str(ctx.channel)}.{ctx.author}: {msg.content}")
 		elif cmd.find("--Search") != -1:				#測試功能:Search
 			async with ctx.channel.typing():
 				f = open("data/json/CharacterSet.json", "r", encoding="utf-8")
@@ -189,7 +193,16 @@ class MyBot(commands.Bot):
 		text = text.replace("&Time;", str(Get_Time()))
 		return text
 
-
+	async def CloseSelf(self):
+		try:
+			await self.close()
+		except:
+			pass
+		finally:
+			import os
+			os.system("python data/bot.py")
+			exit()
+		
 	#傳送訊息用
 	async def sender(self, Message, Str):
 		await Message.channel.send(Str)
