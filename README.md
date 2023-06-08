@@ -65,5 +65,5 @@ Name.json -> 設定機器人默認名稱與別名(這個必填不然只要講話
 - 20230606
   - 更新data/bot.py:回覆表情符號架構
   - 更新data/Fnc/asyncChat.py:整合回覆表情符號架構(應該沒問題？<sup>有問題的只有我這個python證照沒考過的拉機</sup>)
-- 20230606
+- 20230608
   - 更新data/bot.py:新增Restart指令重啟機器人
