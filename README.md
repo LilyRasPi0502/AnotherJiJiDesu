@@ -5,7 +5,7 @@
 ## 若有侵權疑慮將會下架此儲存庫<br>(If there is any infringement concern, this repository will be taken down)
 
 # How to use?(好阿都不要教阿)
-在Launcher.exe的目錄下使用`python data/bot.py`指令或是直接在windows環境下使用Launcher.exe
+在Launcher.exe的目錄下使用`python Launchar.py`指令或是直接在windows環境下使用Launcher.exe
 
 # 環境建置
 本程式使用火狐瀏覽器(需要安裝Firefox)
@@ -67,3 +67,5 @@ Name.json -> 設定機器人默認名稱與別名(這個必填不然只要講話
   - 更新data/Fnc/asyncChat.py:整合回覆表情符號架構(應該沒問題？<sup>有問題的只有我這個python證照沒考過的拉機</sup>)
 - 20230608
   - 更新data/bot.py:新增Restart指令重啟機器人
+- 20230609
+  - 更新Launchar.py:應該能支援24小時不間斷執行
