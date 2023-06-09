@@ -199,8 +199,6 @@ class MyBot(commands.Bot):
 		except:
 			pass
 		finally:
-			import os
-			os.system("python data/bot.py")
 			exit()
 		
 	#傳送訊息用
