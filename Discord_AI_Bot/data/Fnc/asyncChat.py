@@ -18,6 +18,10 @@ async def ChaInt():
 	page = await context.new_page()
 	await page.goto(f"https://chateverywhere.app/zh")
 	await asyncio.sleep(5)
+	await page.mouse.move(10, 10)
+	await page.mouse.down()
+	await asyncio.sleep(1)
+	await page.mouse.up()
 	f = open("data/json/CharacterSet.json", "r", encoding="utf-8")
 	Chara = json.load(f)
 	text = Chara['Character']
