@@ -69,3 +69,6 @@ Name.json -> 設定機器人默認名稱與別名(這個必填不然只要講話
   - 更新data/bot.py:新增Restart指令重啟機器人
 - 20230609
   - 更新Launchar.py:應該能支援24小時不間斷執行
+- 20230619
+  - 更新data/Fnc/asyncChat.py:因應chateverywhere版面配置更改初始化函數(目前應該只是應急<sub>人不在家無法改太專業的Code</sub>)
+
