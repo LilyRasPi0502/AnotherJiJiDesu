@@ -23,7 +23,7 @@ class MyBot(commands.Bot):
 	
 	def __init__(self, command_prefix, intent):
 		commands.Bot.__init__(self, command_prefix=command_prefix, intents=intent)
-		self.add_commands()
+		
 	
 	async def on_ready(self):
 		self.message1 = f"正在使用身分: {self.user}({self.user.id})"
@@ -32,16 +32,17 @@ class MyBot(commands.Bot):
 		self.changeActivity.start()
 		await self.Reflash_Character()
 		self.Reflash_CharacterAI.start()
+		self.add_commands()
 	
 	async def on_message(self, message):
 		#排除自己的訊息，避免陷入無限循環
-		if message.author == self.user:
+		if str(message.author).find(str(self.user)) != -1:
 			return
 		#設定是否已回覆旗標
 		send = True
 
 		#列印接收到的訊息
-		print(f"[{Get_Time()}] Get Message from {str(message.guild)}.{str(message.channel)}.{str(message.author)}: {str(message.content)}")
+		print(f"[{Get_Time()}] Get Message from {str(message.guild)}.{str(message.channel)}.{str(message.author.display_name)}: {str(message.content)}")
 		
 		#判斷有無回覆訊息
 		if message.reference is not None:
@@ -49,7 +50,7 @@ class MyBot(commands.Bot):
 			ctx = await message.channel.fetch_message(message.reference.message_id)
 		
 			#如果被回覆的對象是此機器人
-			if (ctx.author == self.user):
+			if str(ctx.author).find(str(self.user)) != -1:
 				await self.cmd(message, f"{self.ID_To_Name(message.content)}")
 				send = False
 	
@@ -95,7 +96,10 @@ class MyBot(commands.Bot):
 					with open(FileName, mode='wb') as f:
 						f.write(res2.content)
 					await self.FileSender(ctx, FileName)
-				await message.delete()
+				try:
+					await message.delete()
+				except:
+					print("沒有權限")
 			else:
 				print(f"[{Get_Time()}] Replace message of {str(ctx.guild)}.{str(ctx.channel)}: {cmd.split('Replace ')[1]}")
 				await ctx.channel.send(cmd.split("Replace ")[1])
@@ -105,49 +109,27 @@ class MyBot(commands.Bot):
 					with open(FileName, mode='wb') as f:
 						f.write(res2.content)
 					await self.FileSender(ctx, FileName)
-			await ctx.delete()
+			try:
+				await ctx.delete()
+			except:
+				print("沒有權限")
 		
 		elif cmd.find("ReAI") != -1:					#測試功能:Reflash CharacterAI page
 			async with ctx.channel.typing():
 				
 				Str = await self.Reflash_Character()
 			await ctx.reply(Str)
-			print(f"[{Get_Time()}] Reply message to {str(ctx.guild)}.{str(ctx.channel)}.{ctx.author}: {Str}")
+			print(f"[{Get_Time()}] Reply message to {str(ctx.guild)}.{str(ctx.channel)}.{ctx.author.display_name}: {Str}")
 		elif cmd.find("CMD") != -1:					#測試功能:CMD
 			import os
 			async with ctx.channel.typing():
 				os.system(cmd.split("CMD ")[-1])
 			msg = await ctx.reply(f"Used command: {cmd.split('CMD ')[-1]}")
-			print(f"[{Get_Time()}] Reply message to {str(ctx.guild)}.{str(ctx.channel)}.{ctx.author}: {msg.content}")
+			print(f"[{Get_Time()}] Reply message to {str(ctx.guild)}.{str(ctx.channel)}.{ctx.author.display_name}: {msg.content}")
 		elif cmd.find("Restart") != -1:					#測試功能:CMD
 			await self.CloseSelf()
 			msg = await ctx.reply(f"Restart{self.user}")
-			print(f"[{Get_Time()}] Reply message to {str(ctx.guild)}.{str(ctx.channel)}.{ctx.author}: {msg.content}")
-		elif cmd.find("--Search") != -1:				#測試功能:Search
-			async with ctx.channel.typing():
-				f = open("data/json/CharacterSet.json", "r", encoding="utf-8")
-				Chara = json.load(f)
-				text = await self.ChangeText(ctx, f"{Chara['Net']}")
-				Str = await NetWork(f"[{Get_Time()}] {cmd.replace('--Search', '')[-1]}")
-				Str = await chai(text)
-				
-				await self.Reaction(ctx, Str)
-				
-				if Str.find("Reactions") != -1 or (Str.find("[") != -1 and Str.find("]") != -1):
-					Str = (Str.split("[")[0] + Str.split("]")[-1])
-					Str = Str.replace("<Reactions>", "")
-					Str = Str.replace("</Reactions>", "")
-					
-				try:
-					msg = await ctx.reply(Str)
-
-				except:
-					f = open("data/json/CharacterSet.json", "r", encoding="utf-8")
-					text = await self.ChangeText(ctx, f"{Chara['Err']}")
-					Str = await chai(text)
-					msg = await ctx.reply(Str)
-			print(f"[{Get_Time()}] Reply message to {str(ctx.guild)}.{str(ctx.channel)}.{ctx.author}: {msg.content}")
-	
+			print(f"[{Get_Time()}] Reply message to {str(ctx.guild)}.{str(ctx.channel)}.{ctx.author.display_name}: {msg.content}")
 		else:								#暴力連接chatGPT
 
 			async with ctx.channel.typing():
@@ -170,7 +152,7 @@ class MyBot(commands.Bot):
 					Str = await chai(text)
 					msg = await ctx.reply(Str)
 
-			print(f"[{Get_Time()}] Reply message to {str(ctx.guild)}.{str(ctx.channel)}.{ctx.author}: {msg.content}")
+			print(f"[{Get_Time()}] Reply message to {str(ctx.guild)}.{str(ctx.channel)}.{ctx.author.display_name}: {msg.content}")
 
 	async def ChangeText(self, ctx, text):
 		if ctx.reference is not None:
@@ -179,10 +161,10 @@ class MyBot(commands.Bot):
 			msg = f"{json.load(f)['Reference']}"
 			rectx = await ctx.channel.fetch_message(ctx.reference.message_id)
 			msg = msg.replace("&reference;", str(self.ID_To_Name(rectx.content)))
-			msg = msg.replace("&author;", str(rectx.author)[:-5])
+			msg = msg.replace("&author;", str(rectx.author.display_name))
 		else:
 			msg = ""
-		text = text.replace("&author;", str(ctx.author)[:-5])
+		text = text.replace("&author;", str(ctx.author.display_name))
 		text = text.replace("&guild;", str(ctx.guild))
 		text = text.replace("&channel;", str(ctx.channel))
 		text = text.replace("&Master_ID;", str(Master_ID))
@@ -265,7 +247,7 @@ class MyBot(commands.Bot):
 
 def bot1():
 	# Your code here
-	bot = MyBot(command_prefix="!", intent=intents)
+	bot = MyBot(command_prefix="/", intent=intents)
 	bot.run(Token)
 
 	
