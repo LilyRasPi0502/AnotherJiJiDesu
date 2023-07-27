@@ -117,9 +117,9 @@ class MyBot(commands.Bot):
 		elif cmd.find("ReAI") != -1:					#測試功能:Reflash CharacterAI page
 			Str = await self.Reflash_Character()
 			try: 
-      await message.add_reaction("🆗") 
-     except: 
-      pass
+                                await message.add_reaction("🆗") 
+     except:
+                                pass
 		elif cmd.find("CMD") != -1:					#測試功能:CMD
 			import os
 			async with ctx.channel.typing():
