@@ -115,11 +115,11 @@ class MyBot(commands.Bot):
 				print("沒有權限")
 		
 		elif cmd.find("ReAI") != -1:					#測試功能:Reflash CharacterAI page
-			async with ctx.channel.typing():
-				
-				Str = await self.Reflash_Character()
-			await ctx.reply(Str)
-			print(f"[{Get_Time()}] Reply message to {str(ctx.guild)}.{str(ctx.channel)}.{ctx.author.display_name}: {Str}")
+			Str = await self.Reflash_Character()
+			try: 
+      await message.add_reaction("🆗") 
+     except: 
+      pass
 		elif cmd.find("CMD") != -1:					#測試功能:CMD
 			import os
 			async with ctx.channel.typing():
