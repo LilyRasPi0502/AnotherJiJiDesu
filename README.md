@@ -13,6 +13,10 @@
 
 還有*DC API for Python*在setup-lib檔案裏面有最低限度的安裝指令
 
+先至Discord申請機器人(https://discord.com/developers/applications)
+
+授權MESSAGE CONTENT INTENT與PUBLIC BOT
+
 安裝相依庫時可以先前往data/json填寫資料
 
 Stetas.json -> 正在玩 XXX 的那個(機器人活動狀態)
